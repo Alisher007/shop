@@ -1,0 +1,54 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="navbar-brand ml-4" href="{% url 'shop:product_list' %}"><img src="https://bblearn-test-001.s3.amazonaws.com/media/BBL_100.png" alt="logo" width="25%" height="25%"></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">tests</a>
+      </li> 
+      <li class="nav-item">
+        <a class="nav-link" href="#">bookings</a>
+      </li> 
+    </ul>
+    {% with total_items=cart|length %}
+      {% if total_items > 0 %}
+        Your cart:
+        <a href="{% url 'cart:cart_detail' %}">
+        {{ total_items }} item{{ total_items|pluralize }},
+        ${{ cart.get_total_price }}
+        </a>
+      {% else %}
+        Your cart is empty.
+      {% endif %}
+    {% endwith %}
+
+    {% if user.is_authenticated %}
+    <div class="nav-item">
+      <a class="navbar-brand" href="">
+        {% if user.profile.image %}
+            <img src="" alt="avatar" width="30" height="30">
+        {% else %}
+            <div ><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 448 512"><path d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0S96 57.3 96 128s57.3 128 128 128zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/></svg></div>
+        {% endif %}
+      </a>
+    </div>
+    <form class="logout-link" 
+    action="{% url 'account_logout' %}" 
+    alt='djangonautic'
+    method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger btn-sm">Logout</button>
+    </form>
+      
+    {% else %}
+      <div><a href="{% url 'account_login' %}" class="btn btn-success btn-sm">Login</a></div>
+    {% endif %}
+   
+  </div>   <!-- collapse end -->
+</nav>

@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "shop"
+version = "0.1.0"
+description = ""
+authors = ["Alisher007 <alisherx07@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+django = "^4.1.7"
+python-dotenv = "^0.21.1"
+django-crispy-forms = "^2.0"
+pillow = "^9.4.0"
+psycopg2 = "^2.9.5"
+django-allauth = "^0.52.0"
+celery = "^5.2.7"
+redis = "^4.5.1"
+flower = "^1.2.0"
+stripe = "^5.2.0"
+weasyprint = "^58.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

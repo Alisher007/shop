@@ -13,4 +13,12 @@ This is online shop
 
 ### Capable ###
 
-* List all products
+* Using Django sessions
+* Creating a context processor
+* Asynchronous tasks, celery adn flower
+* Integrating a payment gateway with Stripe
+* Using webhooks to receive payment notifications
+* Exporting orders to CSV files
+* Generating PDF invoices dynamically
+* Creating a coupon system
+

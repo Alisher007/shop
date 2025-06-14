@@ -1,0 +1,68 @@
+services:
+  web:
+    build: ./app
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./app/:/usr/src/app/
+    ports:
+      - 8000:8000
+    env_file:
+      - ./.env.dev
+    depends_on:
+      - db
+      - redis
+    environment:
+      # THIS IS THE CRUCIAL PART FOR REDIS CONNECTION
+      REDIS_HOST: redis # Use the service name as the hostname
+      REDIS_PORT: 6379
+      # Add Celery Broker URL for Django app to send tasks
+      CELERY_BROKER_URL: redis://redis:6379/0 # Using the service name 'redis'
+  db:
+    image: postgres:15
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=hello_django
+      - POSTGRES_PASSWORD=hello_django
+      - POSTGRES_DB=hello_django_dev
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    
+  celery_worker:
+    build: ./app # Build using the same Dockerfile as your Django app
+    command: celery -A core worker -l info # Replace 'core'
+    volumes:
+      - ./app/:/usr/src/app/ # Mount your app code
+    env_file:
+      - ./.env.dev
+    depends_on:
+      - redis # Celery worker needs the Redis broker
+      - db # If your Celery tasks interact with the database
+    environment:
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      CELERY_BROKER_URL: redis://redis:6379/0 # Celery worker connects to Redis
+      # Add this if you use Django settings for Celery
+      DJANGO_SETTINGS_MODULE: core.settings # e.g., myproject.settings
+
+  # Optional: Add Celery Beat for periodic tasks
+  celery_beat:
+    build: ./app
+    command: celery -A core beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler # Use DatabaseScheduler for Django-Celery-Beat
+    volumes:
+      - ./app/:/usr/src/app/
+    env_file:
+      - ./.env.dev
+    depends_on:
+      - redis
+      - db # Celery beat usually needs the database for storing schedules
+    environment:
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      CELERY_BROKER_URL: redis://redis:6379/0
+      DJANGO_SETTINGS_MODULE: core.settings
+
+volumes:
+  postgres_data:

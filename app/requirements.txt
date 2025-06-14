@@ -1,0 +1,13 @@
+Django==5.2.2
+python-dotenv==1.1.0
+django-crispy-forms==2.4
+pillow==11.2.1
+psycopg2-binary==2.9.10
+django-allauth==65.9.0
+django-celery-beat==2.8.1
+celery==5.5.3
+redis==6.2.0
+flower==2.0.1
+stripe==12.2.0
+weasyprint==65.1
+gunicorn==23.0.0

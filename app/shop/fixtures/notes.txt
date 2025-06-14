@@ -1,0 +1,9 @@
+docker-compose exec web python manage.py dumpdata auth --indent 4 --output=shop/fixtures/auth.json
+docker-compose exec web python manage.py dumpdata staff --indent 4 --output=shop/fixtures/staff.json
+docker-compose exec web python manage.py dumpdata shop --indent 4 --output=shop/fixtures/shop.json
+####################
+docker-compose exec web python manage.py loaddata shop/fixtures/shop.json
+####################
+
+docker-compose exec web python manage.py loaddata auth.json staff.json shop.json
+docker-compose exec web python manage.py loaddata shop.json

@@ -1,0 +1,55 @@
+[
+{
+    "model": "shop.category",
+    "pk": 1,
+    "fields": {
+        "name": "tea",
+        "slug": "tea"
+    }
+},
+{
+    "model": "shop.product",
+    "pk": 1,
+    "fields": {
+        "category": 1,
+        "name": "black tea",
+        "slug": "black-tea",
+        "image": "products/2025/06/08/back_tea.jpg",
+        "description": "black tea description",
+        "price": "10.00",
+        "available": true,
+        "created": "2025-06-08T16:54:40.222Z",
+        "updated": "2025-06-08T16:54:40.222Z"
+    }
+},
+{
+    "model": "shop.product",
+    "pk": 2,
+    "fields": {
+        "category": 1,
+        "name": "green tea",
+        "slug": "green-tea",
+        "image": "products/2025/06/08/green_tea.png",
+        "description": "green tea description",
+        "price": "12.00",
+        "available": true,
+        "created": "2025-06-08T16:55:05.142Z",
+        "updated": "2025-06-08T17:08:30.587Z"
+    }
+},
+{
+    "model": "shop.product",
+    "pk": 3,
+    "fields": {
+        "category": 1,
+        "name": "turkish tea",
+        "slug": "turkish-tea",
+        "image": "products/2025/06/08/turkish_tea.jpg",
+        "description": "turkish tea description",
+        "price": "15.00",
+        "available": true,
+        "created": "2025-06-08T16:55:34.522Z",
+        "updated": "2025-06-08T17:08:43.827Z"
+    }
+}
+]

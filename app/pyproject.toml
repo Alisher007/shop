@@ -1,0 +1,86 @@
+# pyproject.toml
+
+[tool.ruff]
+
+target-version = "py312" # Or whatever Python version your project uses (e.g., "py39", "py310", "py311")
+line-length = 120 # Adjust as per your team's preference
+
+# Exclude directories and files that should not be linted/formatted
+exclude = [
+    ".venv",
+    "migrations",
+    "env",
+    ".git",
+    "__pycache__",
+    "node_modules",
+]
+
+# All linting-specific configurations now go under [tool.ruff.lint]
+[tool.ruff.lint]
+# Enable specific rules or categories of rules
+# You can find a full list of rules at https://docs.astral.sh/ruff/rules/
+
+# Exclude directories and files that should not be linted/formatted by Ruff
+select = [
+    "E",   # Error
+    "W",   # Warning
+    "F",   # Pyflakes
+    "I",   # Isort
+    "N",   # Naming conventions
+    "D",   # pydocstyle (docstrings) - optional, enable if you enforce docstrings
+    "UP",  # pyupgrade (modernize code)
+    "B",   # Bugbear
+    "A",   # flake8-builtins
+    "COM", # flake8-commas
+    "C4",  # flake8-comprehensions
+    "T20", # flake8-print
+    # "V",   # flake8-unused-variables
+]
+ignore = [
+    "D100", # Missing docstring in public module
+    "D104", # Missing docstring in public package
+    "D105", # Missing docstring in magic method
+    "D107", # Missing docstring in __init__
+    "T201", # print found
+    "D212", # Multi-line docstring summary should start at the first line
+    "D205", # 1 blank line required between summary line and description
+]
+
+
+[ttool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401"] # Ignore unused imports in __init__.py files
+"settings.py" = ["E501"] # Ignore line length in settings.py if it gets too long
+
+[tool.ruff.lint.isort]
+# isort rules (for import sorting)
+known-first-party = ["my_project_name"] # Replace "my_project_name" with your actual Django project's main app name
+force-single-line = false
+# You can add more isort configurations here if needed
+
+[tool.ruff.lint.pydocstyle]
+convention = "google" # Or "pep257", "numpy" if you enabled "D" and want specific docstring conventions
+
+[tool.ruff.format]
+# Enable auto-completion of trailing commas for multiline literals
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+docstring-code-format = true
+# You can configure more formatting options here
+
+[tool.flake8]
+exclude = [
+    ".git",
+    "__pycache__",
+    ".venv",
+    "env",
+    "migrations",
+]
+max-line-length = 88
+ignore = [
+    "E501", # Line too long (handled by formatter)
+    "F401", # Unused import (handled by formatter/Ruff fix)
+    "W503", # Line break before binary operator (stylistic choice)
+    "E231", # missing whitespace after ':' or ','
+    "E702", # multiple statements on one line (semicolon)
+]

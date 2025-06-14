@@ -114,6 +114,9 @@ ven.bak/
 pyenv.cfg
 Scripts/
 
+# Specific entry for .venv inside app/
+/app/.venv/
+
 # Spyder project settings
 .spyderproject
 .spyproject
